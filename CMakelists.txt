@@ -1,10 +1,20 @@
 cmake_minimum_required(VERSION 2.8)			#Specify the minimum CMake version
-project(hello)								#Specify the name of the project
+project(GPUHW1-RM)								#Specify the name of the project
 find_package(CUDA REQUIRED)					#find the CUDA libraries
+set(HDR_FILES E:/Courses/GPU/software/includeh)
 include_directories(${CUDA_INCLUDE_DIRS})	#Specify the CUDA include directories for the project
-cuda_add_executable(hello main.cu)			#create an executable from the given CUDA files
+include_directories(${HDR_FILES})
+#Assign source files to the appropriate variables to easily associate them with executables
+file(GLOB PROJ_SRC "${CMAKE_SOURCE_DIR}/src/*.cu")
+#file(GLOB HEADER_FILES "${HDR_FILES}/*.h")
 
+cuda_add_executable(GPUHW1-RM
+			${PROJ_SRC}
+			#${HEADER_FILES}
+	)			#create an executable from the given CUDA files
+	
 #specify any additional libraries here (CUFFT and CUBLAS can be useful)
-target_link_libraries(hello
+target_link_libraries(GPUHW1-RM
+					  #${HEADER_FILES}
 					  ${CUDA_cufft_LIBRARY}
 					  ${CUDA_cublas_LIBRARY})
